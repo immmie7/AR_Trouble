@@ -16,7 +16,6 @@ class GameViewController: UIViewController {
 //Create a ARview manually
     let arView: ARSCNView = {//AR is for ARKit SCN is for SCNKit
         let view = ARSCNView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -43,23 +42,23 @@ class GameViewController: UIViewController {
     // MINUSBUTTON
     // Code for the minusbutton
     
-//    let minusButtonWidth = ScreenSize.width * 0.1
-//    lazy var minusButton: UIButton = {
-//        var button = UIButton(type: .system)
-//        button.setImage(#imageLiteral(resourceName: "MinusButton").withRenderingMode(.alwaysTemplate), for: .normal)
-//        button.tintColor = UIColor(white: 1.0, alpha: 0.7)
-//        button.layer.cornerRadius = minusButtonWidth * 0.5
-//        button.layer.masksToBounds = true
-//        button.addTarget(self, action: #selector(handleMinusButtonTapped), for: .touchUpInside)
-//        button.layer.zPosition = 1
-//        button.imageView?.contentMode = .scaleAspectFill
-//        return button
-//    }()
-//
-//    @objc func handleMinusButtonTapped() {
-//        print("Tapped on minus button")
-//        //        removeAllNodes()
-//    }
+    let minusButtonWidth = ScreenSize.width * 0.1
+    lazy var minusButton: UIButton = {
+        var button = UIButton(type: .system)
+        button.setImage(#imageLiteral(resourceName: "MinusButton").withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = UIColor(white: 1.0, alpha: 0.7)
+        button.layer.cornerRadius = minusButtonWidth * 0.5
+        button.layer.masksToBounds = true
+        button.addTarget(self, action: #selector(handleMinusButtonTapped), for: .touchUpInside)
+        button.layer.zPosition = 1
+        button.imageView?.contentMode = .scaleAspectFill
+        return button
+    }()
+
+    @objc func handleMinusButtonTapped() {
+        print("Tapped on minus button")
+        removeAllBoxes()
+     }
 //
 //    // RESETBUTTON
 //    // Code for the resetbutton
@@ -118,10 +117,10 @@ class GameViewController: UIViewController {
     view.addSubview(plusButton)
     plusButton.anchor(nil, left: view.safeAreaLayoutGuide.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: nil, topConstant: 0, leftConstant: 250, bottomConstant: 30, rightConstant: 0, widthConstant: plusButtonWidth, heightConstant: plusButtonWidth)
     
-//    //MINUSBUTTON
-//    view.addSubview(minusButton)
-//    minusButton.anchor(nil, left: nil, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 30, rightConstant: 50 , widthConstant: minusButtonWidth, heightConstant: minusButtonWidth)
-//
+    //MINUSBUTTON
+    view.addSubview(minusButton)
+    minusButton.anchor(nil, left: nil, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 30, rightConstant: 250 , widthConstant: minusButtonWidth, heightConstant: minusButtonWidth)
+
 //    //RESETBUTTON
 //    view.addSubview(resetButton)
 //    resetButton.anchor(nil, left: nil, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 30, rightConstant: 0 , widthConstant: resetButtonWidth, heightConstant: resetButtonWidth)
@@ -137,10 +136,18 @@ class GameViewController: UIViewController {
         boxNode.geometry = SCNBox(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0.0002) //width, height and length in meters
         boxNode.geometry?.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "Material")
         boxNode.position = SCNVector3(Float.random(min: -0.5, max: 0.5),Float.random(min: -0.5, max: 0.5),Float.random(min: -0.5, max: 0.5)) //x,y,z coordinates in meters
-//        boxNode.name = "box"
+        boxNode.name = "box"
         arView.scene.rootNode.addChildNode(boxNode)
     } 
     
-    
+    func removeAllBoxes() {
+        arView.scene.rootNode.enumerateChildNodes { (node, _ ) in
+            if node.name == "box" {
+                node.removeFromParentNode()
+                    }
+        
+        
+                }
+            }
     
 }

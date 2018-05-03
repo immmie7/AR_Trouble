@@ -7,21 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11AF8176D94DAF36D8BF60B9 /* Pods_AR_Trouble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E20BC7DE89C8419DAAEEE898 /* Pods_AR_Trouble.framework */; };
 		A325A5F9209B32E000D28DD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A325A5F8209B32E000D28DD6 /* AppDelegate.swift */; };
-		A325A5FB209B32E000D28DD6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A325A5FA209B32E000D28DD6 /* ViewController.swift */; };
-		A325A5FE209B32E000D28DD6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A325A5FC209B32E000D28DD6 /* Main.storyboard */; };
 		A325A600209B32E100D28DD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A325A5FF209B32E100D28DD6 /* Assets.xcassets */; };
 		A325A603209B32E100D28DD6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A325A601209B32E100D28DD6 /* LaunchScreen.storyboard */; };
+		A325A60B209B35E700D28DD6 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A325A60A209B35E700D28DD6 /* GameViewController.swift */; };
+		A325A60F209B53BC00D28DD6 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A325A60E209B53BC00D28DD6 /* Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A325A5F5209B32E000D28DD6 /* AR_Trouble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AR_Trouble.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A325A5F8209B32E000D28DD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A325A5FA209B32E000D28DD6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		A325A5FD209B32E000D28DD6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A325A5FF209B32E100D28DD6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A325A602209B32E100D28DD6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A325A604209B32E100D28DD6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A325A60A209B35E700D28DD6 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		A325A60E209B53BC00D28DD6 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		AD4BD5E2388231035D1CD429 /* Pods-AR_Trouble.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AR_Trouble.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AR_Trouble/Pods-AR_Trouble.debug.xcconfig"; sourceTree = "<group>"; };
+		E20BC7DE89C8419DAAEEE898 /* Pods_AR_Trouble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AR_Trouble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA772CC3EA4EAA9314FE5D1D /* Pods-AR_Trouble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AR_Trouble.release.xcconfig"; path = "Pods/Target Support Files/Pods-AR_Trouble/Pods-AR_Trouble.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11AF8176D94DAF36D8BF60B9 /* Pods_AR_Trouble.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F37EF406E6B5B51DF898D0D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AD4BD5E2388231035D1CD429 /* Pods-AR_Trouble.debug.xcconfig */,
+				FA772CC3EA4EAA9314FE5D1D /* Pods-AR_Trouble.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		9346A9618C924FF9923240CD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E20BC7DE89C8419DAAEEE898 /* Pods_AR_Trouble.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A325A5EC209B32DF00D28DD6 = {
 			isa = PBXGroup;
 			children = (
 				A325A5F7209B32E000D28DD6 /* AR_Trouble */,
 				A325A5F6209B32E000D28DD6 /* Products */,
+				3F37EF406E6B5B51DF898D0D /* Pods */,
+				9346A9618C924FF9923240CD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,11 +79,11 @@
 			isa = PBXGroup;
 			children = (
 				A325A5F8209B32E000D28DD6 /* AppDelegate.swift */,
-				A325A5FA209B32E000D28DD6 /* ViewController.swift */,
-				A325A5FC209B32E000D28DD6 /* Main.storyboard */,
 				A325A5FF209B32E100D28DD6 /* Assets.xcassets */,
 				A325A601209B32E100D28DD6 /* LaunchScreen.storyboard */,
 				A325A604209B32E100D28DD6 /* Info.plist */,
+				A325A60A209B35E700D28DD6 /* GameViewController.swift */,
+				A325A60E209B53BC00D28DD6 /* Extension.swift */,
 			);
 			path = AR_Trouble;
 			sourceTree = "<group>";
@@ -71,9 +95,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A325A607209B32E100D28DD6 /* Build configuration list for PBXNativeTarget "AR_Trouble" */;
 			buildPhases = (
+				10B32B46F912581E26CEEB4D /* [CP] Check Pods Manifest.lock */,
 				A325A5F1209B32E000D28DD6 /* Sources */,
 				A325A5F2209B32E000D28DD6 /* Frameworks */,
 				A325A5F3209B32E000D28DD6 /* Resources */,
+				DD73F9B8542033E3E818AE04 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -124,18 +150,57 @@
 			files = (
 				A325A603209B32E100D28DD6 /* LaunchScreen.storyboard in Resources */,
 				A325A600209B32E100D28DD6 /* Assets.xcassets in Resources */,
-				A325A5FE209B32E000D28DD6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		10B32B46F912581E26CEEB4D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AR_Trouble-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DD73F9B8542033E3E818AE04 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-AR_Trouble/Pods-AR_Trouble-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/LBTAComponents/LBTAComponents.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LBTAComponents.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AR_Trouble/Pods-AR_Trouble-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A325A5F1209B32E000D28DD6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A325A5FB209B32E000D28DD6 /* ViewController.swift in Sources */,
+				A325A60F209B53BC00D28DD6 /* Extension.swift in Sources */,
+				A325A60B209B35E700D28DD6 /* GameViewController.swift in Sources */,
 				A325A5F9209B32E000D28DD6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,14 +208,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		A325A5FC209B32E000D28DD6 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A325A5FD209B32E000D28DD6 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		A325A601209B32E100D28DD6 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -213,7 +270,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -267,7 +324,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -278,9 +335,11 @@
 		};
 		A325A608209B32E100D28DD6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AD4BD5E2388231035D1CD429 /* Pods-AR_Trouble.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PQ2U5MTJCF;
 				INFOPLIST_FILE = AR_Trouble/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -295,9 +354,11 @@
 		};
 		A325A609209B32E100D28DD6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FA772CC3EA4EAA9314FE5D1D /* Pods-AR_Trouble.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PQ2U5MTJCF;
 				INFOPLIST_FILE = AR_Trouble/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

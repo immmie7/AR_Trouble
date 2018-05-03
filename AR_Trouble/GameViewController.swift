@@ -37,6 +37,7 @@ class GameViewController: UIViewController {
     
     @objc func handlePlusButtonTapped() {
         print("Tapped on plus button")
+        addBox()
         }
     
     // MINUSBUTTON
@@ -99,6 +100,7 @@ class GameViewController: UIViewController {
         
         arView.session.run(configuration, options: [])
         arView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+        arView.autoenablesDefaultLighting = true
         
         
     }
@@ -129,6 +131,15 @@ class GameViewController: UIViewController {
 
         
     }
+    
+    func addBox() {
+        let boxNode = SCNNode()
+        boxNode.geometry = SCNBox(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0.0002) //width, height and length in meters
+        boxNode.geometry?.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "Material")
+        boxNode.position = SCNVector3(Float.random(min: -0.5, max: 0.5),Float.random(min: -0.5, max: 0.5),Float.random(min: -0.5, max: 0.5)) //x,y,z coordinates in meters
+//        boxNode.name = "box"
+        arView.scene.rootNode.addChildNode(boxNode)
+    } 
     
     
     

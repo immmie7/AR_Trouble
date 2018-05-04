@@ -53,7 +53,7 @@ public extension Float {
 }
 
 extension Int {
-    var degreesToRadians: Double { return Double(self) * .pi/180}
+    var degreesToRadians: Double { return Double(self) * .pi/180} //Converts degrees to radius so we can just use degrees
 }
 
 

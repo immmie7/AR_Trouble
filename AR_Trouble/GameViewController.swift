@@ -163,6 +163,28 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
             arView.session.run(configuration, options: [.removeExistingAnchors, .resetTracking])
         }
     
+        //Code to create the floor
+        func createFloor(anchor: ARPlaneAnchor) -> SCNNode {
+            let floor = SCNNode()
+            floor.name = "floor" //The name of the floor is floor
+            floor.eulerAngles = SCNVector3(90.degreesToRadians,0,0) //The plane is now a horizontal floor
+            floor.geometry = SCNPlane(width: CGFloat(anchor.extent.x), height: CGFloat(anchor.extent.z)) //Makes the floor floor(plane)-shaped. The x and the z values are used, cuz that are the ground values (y is up in the air)
+            floor.geometry?.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "Material") //Material of the floor
+            floor.geometry?.firstMaterial?.isDoubleSided = true //Material is shown on both sides
+            floor.position = SCNVector3(anchor.center.x, anchor.center.y, anchor.center.z) //The floor is positioned at the ground
+            return floor
+        }
+    
+    func removeNode(named: String) {
+        arView.scene.rootNode.enumerateChildNodes { (node, _ ) in
+            if node.name == named {
+                node.removeFromParentNode()
+            }
+            
+            
+        }
+    }
+    
     
         func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
             guard let anchorPlane = anchor as? ARPlaneAnchor else { return }

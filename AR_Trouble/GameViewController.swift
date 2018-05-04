@@ -36,7 +36,7 @@ class GameViewController: UIViewController {
     
     @objc func handlePlusButtonTapped() {
         print("Tapped on plus button")
-        addBox()
+        addNode()
         }
     
     // MINUSBUTTON
@@ -57,29 +57,29 @@ class GameViewController: UIViewController {
 
     @objc func handleMinusButtonTapped() {
         print("Tapped on minus button")
-        removeAllBoxes()
+        removeAllShapes()
      }
-//
-//    // RESETBUTTON
-//    // Code for the resetbutton
-//
-//    let resetButtonWidth = ScreenSize.width * 0.1
-//    lazy var resetButton: UIButton = {
-//        var button = UIButton(type: .system)
-//        button.setImage(#imageLiteral(resourceName: "ReloadButton").withRenderingMode(.alwaysTemplate), for: .normal)
-//        button.tintColor = UIColor(white: 1.0, alpha: 0.7)
-//        button.layer.cornerRadius = resetButtonWidth * 0.5
-//        button.layer.masksToBounds = true
-//        button.addTarget(self, action: #selector(handleResetButtonTapped), for: .touchUpInside)
-//        button.layer.zPosition = 1
-//        button.imageView?.contentMode = .scaleAspectFill
-//        return button
-//    }()
-//
-//    @objc func handleResetButtonTapped() {
-//        print("Tapped on reset button")
-//        //        resetScene()
-//    }
+
+    // RESETBUTTON
+    // Code for the resetbutton
+
+    let resetButtonWidth = ScreenSize.width * 0.1
+    lazy var resetButton: UIButton = {
+        var button = UIButton(type: .system)
+        button.setImage(#imageLiteral(resourceName: "ReloadButton").withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = UIColor(white: 1.0, alpha: 0.7)
+        button.layer.cornerRadius = resetButtonWidth * 0.5
+        button.layer.masksToBounds = true
+        button.addTarget(self, action: #selector(handleResetButtonTapped), for: .touchUpInside)
+        button.layer.zPosition = 1
+        button.imageView?.contentMode = .scaleAspectFill
+        return button
+    }()
+
+    @objc func handleResetButtonTapped() {
+        print("Tapped on reset button")
+            resetScene()
+    }
     
 
     
@@ -115,39 +115,50 @@ class GameViewController: UIViewController {
         
     //PLUSBUTTON
     view.addSubview(plusButton)
-    plusButton.anchor(nil, left: view.safeAreaLayoutGuide.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: nil, topConstant: 0, leftConstant: 250, bottomConstant: 30, rightConstant: 0, widthConstant: plusButtonWidth, heightConstant: plusButtonWidth)
+    plusButton.anchor(nil, left: view.safeAreaLayoutGuide.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: nil, topConstant: 0, leftConstant: 250, bottomConstant: 30, rightConstant: 0, widthConstant: plusButtonWidth, heightConstant: plusButtonWidth) //Button located on the left on the bottom of the screen
     
     //MINUSBUTTON
     view.addSubview(minusButton)
-    minusButton.anchor(nil, left: nil, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 30, rightConstant: 250 , widthConstant: minusButtonWidth, heightConstant: minusButtonWidth)
+    minusButton.anchor(nil, left: nil, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 30, rightConstant: 250 , widthConstant: minusButtonWidth, heightConstant: minusButtonWidth) //Button located on the right on the bottom of the screen
 
-//    //RESETBUTTON
-//    view.addSubview(resetButton)
-//    resetButton.anchor(nil, left: nil, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 30, rightConstant: 0 , widthConstant: resetButtonWidth, heightConstant: resetButtonWidth)
-//        resetButton.anchorCenterXToSuperview()
+    //RESETBUTTON
+    view.addSubview(resetButton)
+    resetButton.anchor(nil, left: nil, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 30, rightConstant: 0 , widthConstant: resetButtonWidth, heightConstant: resetButtonWidth) //Button located in the middle on the bottom of the screen
+        resetButton.anchorCenterXToSuperview() //Located to the center
+
         
         
 
         
     }
     
-    func addBox() {
-        let boxNode = SCNNode()
-        boxNode.geometry = SCNBox(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0.0002) //width, height and length in meters
-        boxNode.geometry?.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "Material")
-        boxNode.position = SCNVector3(Float.random(min: -0.5, max: 0.5),Float.random(min: -0.5, max: 0.5),Float.random(min: -0.5, max: 0.5)) //x,y,z coordinates in meters
-        boxNode.name = "box"
-        arView.scene.rootNode.addChildNode(boxNode)
+    func addNode() {
+        let shapeNode = SCNNode()
+        shapeNode.geometry = SCNBox(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0.0002) //width, height and length in meters
+        shapeNode.geometry?.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "Material")
+        shapeNode.position = SCNVector3(Float.random(min: -0.5, max: 0.5),Float.random(min: -0.5, max: 0.5),Float.random(min: -0.5, max: 0.5)) //x,y,z coordinates in meters
+        shapeNode.name = "node"
+        arView.scene.rootNode.addChildNode(shapeNode)
     } 
     
-    func removeAllBoxes() {
+    func removeAllShapes() {
         arView.scene.rootNode.enumerateChildNodes { (node, _ ) in
-            if node.name == "box" {
+            if node.name == "node" {
                 node.removeFromParentNode()
                     }
         
         
                 }
             }
+    
+        func resetScene() {
+            arView.session.pause()
+            arView.scene.rootNode.enumerateChildNodes { (node, _) in
+                if node.name == "node" {
+                    node.removeFromParentNode()
+                }
+            }
+            arView.session.run(configuration, options: [.removeExistingAnchors, .resetTracking])
+        }
     
 }

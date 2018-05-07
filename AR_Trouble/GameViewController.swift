@@ -90,12 +90,50 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
             resetScene()
     }
     
-
-    
-     
-    
     let configuration = ARWorldTrackingConfiguration()
     
+//    Distance label
+    let distanceLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 30)
+        label.textColor = UIColor.black
+        label.text = "Distance:"
+        return label
+    }()
+    
+//    X label
+    let xLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 30)
+        label.textColor = UIColor.red
+        label.text = "x:"
+        return label
+    }()
+    
+//    y label
+    let yLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 30)
+        label.textColor = UIColor.green
+        label.text = "y:"
+        return label
+    }()
+    
+//    z label
+    let zLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 30)
+        label.textColor = UIColor.blue
+        label.text = "z:"
+        return label
+    }()
+    
+    let centerImageView: UIImageView = {
+       let view = UIImageView()
+        view.image = #imageLiteral(resourceName: "Center")
+        view.contentMode = .scaleAspectFill
+        return view
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,9 +178,25 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     view.addSubview(resetButton)
     resetButton.anchor(nil, left: nil, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 30, rightConstant: 0 , widthConstant: resetButtonWidth, heightConstant: resetButtonWidth) //Button located in the middle on the bottom of the screen
         resetButton.anchorCenterXToSuperview() //Located to the center
-
+      
+//  Distance label
+    view.addSubview(distanceLabel)
+        distanceLabel.anchor(view.safeAreaLayoutGuide.topAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: nil, right: nil, topConstant: 35, leftConstant: 35, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 24)
         
+//  x,y,z labels
+    view.addSubview(xLabel)
+    view.addSubview(yLabel)
+    view.addSubview(zLabel)
         
+    xLabel.anchor(distanceLabel.bottomAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 35, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 35)
+        
+    yLabel.anchor(xLabel.bottomAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 35, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 35)
+        
+    zLabel.anchor(yLabel.bottomAnchor, left: view.safeAreaLayoutGuide.leftAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 35, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 35)
+        
+    view.addSubview(centerImageView)
+        centerImageView.anchorCenterSuperview()
+        centerImageView.anchor(nil, left: nil, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: ScreenSize.width*0.05, heightConstant: ScreenSize.width*0.05)
 
         
     }

@@ -134,6 +134,10 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         view.contentMode = .scaleAspectFill
         return view
     }()
+//  Measure distance
+    var startingPositionNode: SCNNode?
+    var endingPositionNode: SCNNode?
+    let cameraRelativePosition = SCNVector3(0,0,-0.1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -230,17 +234,17 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
             arView.session.run(configuration, options: [.removeExistingAnchors, .resetTracking])
         }
     
-        //Code to create the floor
-        func createFloor(anchor: ARPlaneAnchor) -> SCNNode {
-            let floor = SCNNode()
-            floor.name = "floor" //The name of the floor is floor
-            floor.eulerAngles = SCNVector3(90.degreesToRadians,0,0) //The plane is now a horizontal floor
-            floor.geometry = SCNPlane(width: CGFloat(anchor.extent.x), height: CGFloat(anchor.extent.z)) //Makes the floor floor(plane)-shaped. The x and the z values are used, cuz that are the ground values (y is up in the air)
-            floor.geometry?.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "Material") //Material of the floor
-            floor.geometry?.firstMaterial?.isDoubleSided = true //Material is shown on both sides
-            floor.position = SCNVector3(anchor.center.x, anchor.center.y, anchor.center.z) //The floor is positioned at the ground
-            return floor
-        }
+//        //Code to create the floor
+//        func createFloor(anchor: ARPlaneAnchor) -> SCNNode {
+//            let floor = SCNNode()
+//            floor.name = "floor" //The name of the floor is floor
+//            floor.eulerAngles = SCNVector3(90.degreesToRadians,0,0) //The plane is now a horizontal floor
+//            floor.geometry = SCNPlane(width: CGFloat(anchor.extent.x), height: CGFloat(anchor.extent.z)) //Makes the floor floor(plane)-shaped. The x and the z values are used, cuz that are the ground values (y is up in the air)
+//            floor.geometry?.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "Material") //Material of the floor
+//            floor.geometry?.firstMaterial?.isDoubleSided = true //Material is shown on both sides
+//            floor.position = SCNVector3(anchor.center.x, anchor.center.y, anchor.center.z) //The floor is positioned at the ground
+//            return floor
+//        }
     
     func removeNode(named: String) {
         arView.scene.rootNode.enumerateChildNodes { (node, _ ) in
@@ -253,44 +257,85 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     }
     
     
-        func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-            guard let anchorPlane = anchor as? ARPlaneAnchor else { return }
-            print("New Plane Anchor with extent:", anchorPlane.extent)
-            let floor = createFloor(anchor: anchorPlane)
-            node.addChildNode(floor)
+//        func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+//            guard let anchorPlane = anchor as? ARPlaneAnchor else { return }
+//            print("New Plane Anchor with extent:", anchorPlane.extent)
+//            let floor = createFloor(anchor: anchorPlane)
+//            node.addChildNode(floor)
+//
+//        }
+//
+//        func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+//            guard let anchorPlane = anchor as? ARPlaneAnchor else { return }
+//            print("Plane Anchor Updated with extent:", anchorPlane.extent)
+//            removeNode(named: "floor")
+//            print("New Plane Anchor with extent:", anchorPlane.extent)
+//            let floor = createFloor(anchor: anchorPlane)
+//            node.addChildNode(floor)
+//        }
+//
+//        func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
+//            guard let anchorPlane = anchor as? ARPlaneAnchor else { return }
+//            print("Plane Anchor removed with extent:", anchorPlane.extent)
+//            removeNode(named: "floor ")
+//        }
     
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        
+        if startingPositionNode != nil && endingPositionNode != nil {
+            return
         }
-    
-        func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-            guard let anchorPlane = anchor as? ARPlaneAnchor else { return }
-            print("Plane Anchor Updated with extent:", anchorPlane.extent)
-            removeNode(named: "floor")
-            print("New Plane Anchor with extent:", anchorPlane.extent)
-            let floor = createFloor(anchor: anchorPlane)
-            node.addChildNode(floor)
-        }
-    
-        func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
-            guard let anchorPlane = anchor as? ARPlaneAnchor else { return }
-            print("Plane Anchor removed with extent:", anchorPlane.extent)
-            removeNode(named: "floor ")
-    
-        }
-    
-//      HitTest
-    @objc func handleTap(sender: UITapGestureRecognizer) {
-        let tappedView = sender.view as! SCNView
-        let touchLocation = sender.location(in: tappedView)
-        let hitTest = tappedView.hitTest(touchLocation, options: nil)
-        if !hitTest.isEmpty { //If it is N0T empty
-            let result = hitTest.first!
-            let name = result.node.name
-            let geometry = result.node.geometry
-            print("Tapped \(String(describing: name)) with geometry: \(String(describing: geometry))")
+        
+        guard let xDistance = Service.distance3(fromStartingPositionNode: startingPositionNode, onView: arView, cameraRelativePosition: cameraRelativePosition)?.x else { return }
+        guard let yDistance = Service.distance3(fromStartingPositionNode: startingPositionNode, onView: arView, cameraRelativePosition: cameraRelativePosition)?.y else { return }
+        guard let zDistance = Service.distance3(fromStartingPositionNode: startingPositionNode, onView: arView, cameraRelativePosition: cameraRelativePosition)?.z else { return }
+        
+        DispatchQueue.main.async {
+            self.xLabel.text = String(format: "x: %.2f", xDistance) + "m"
+            self.yLabel.text = String(format: "y: %.2f", yDistance) + "m"
+            self.zLabel.text = String(format: "z: %.2f", zDistance) + "m"
+            self.distanceLabel.text = String(format: "Distance: %.2f", Service.distance(x: xDistance, y: yDistance, z: zDistance)) + "m"
             
         }
         
     }
+    
+//      HitTest
+    @objc func handleTap(sender: UITapGestureRecognizer) {
+//        let tappedView = sender.view as! SCNView
+//        let touchLocation = sender.location(in: tappedView)
+//        let hitTest = tappedView.hitTest(touchLocation, options: nil)
+//        if !hitTest.isEmpty { //If it is N0T empty
+//            let result = hitTest.first!
+//            let name = result.node.name
+//            let geometry = result.node.geometry
+//            print("Tapped \(String(describing: name)) with geometry: \(String(describing: geometry))")
+        if startingPositionNode != nil && endingPositionNode != nil {
+            startingPositionNode?.removeFromParentNode()
+            endingPositionNode?.removeFromParentNode()
+            startingPositionNode = nil
+            endingPositionNode = nil
+        } else if startingPositionNode != nil && endingPositionNode == nil{
+            let sphere = SCNNode(geometry: SCNSphere(radius: 0.002))
+            sphere.geometry?.firstMaterial?.diffuse.contents = UIColor.yellow
+            Service.addChildNode(node: sphere, toNode: arView.scene.rootNode, inView: arView, cameraRelativePosition: cameraRelativePosition)
+            endingPositionNode = sphere
+        } else if startingPositionNode == nil && endingPositionNode == nil {
+            let sphere = SCNNode(geometry: SCNSphere(radius: 0.002))
+            sphere.geometry?.firstMaterial?.diffuse.contents = UIColor.purple
+            Service.addChildNode(node: sphere, toNode: arView.scene.rootNode, inView: arView, cameraRelativePosition: cameraRelativePosition)
+            startingPositionNode = sphere
+        }
+        
+
+        
+        
+        
+        
+        
+        }
+        
+//    }
     
     func addEarth() {
         let earthNode = SCNNode()
@@ -302,12 +347,12 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         earthNode.geometry?.firstMaterial?.normal.contents = #imageLiteral(resourceName: "EarthNormal")
         earthNode.position = SCNVector3(0,0,-0.5)
         arView.scene.rootNode.addChildNode(earthNode)
-        
+
         let rotate = SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: 15) //Rotate the earth a full 360 degrees in 15 seconds
         let rotateForever = SCNAction.repeatForever(rotate)
         earthNode.runAction(rotateForever)
     }
-    
+
 }
 
 

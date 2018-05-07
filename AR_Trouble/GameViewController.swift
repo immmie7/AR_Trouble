@@ -36,7 +36,16 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
     
     @objc func handlePlusButtonTapped() {
         print("Tapped on plus button")
-        addNode()
+//        addNode()
+        var doesEarthNodeExistInScene = false //Makes sure there is only one earth, like real life
+        arView.scene.rootNode.enumerateChildNodes { (node, _) in
+            if node.name == "earth" {
+                doesEarthNodeExistInScene = true
+            }
+        }
+        if !doesEarthNodeExistInScene { //If doesEarthNode does NOT exist in scene
+            addEarth()
+        }
         }
     
     // MINUSBUTTON
@@ -229,4 +238,29 @@ class GameViewController: UIViewController, ARSCNViewDelegate {
         
     }
     
+    func addEarth() {
+        let earthNode = SCNNode()
+        earthNode.name = "earth"
+        earthNode.geometry = SCNSphere(radius: 0.2)
+        earthNode.geometry?.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "EarthDiffuse")
+        earthNode.geometry?.firstMaterial?.specular.contents = #imageLiteral(resourceName: "EarthSpecular")
+        earthNode.geometry?.firstMaterial?.emission.contents = #imageLiteral(resourceName: "EarthEmmision")
+        earthNode.geometry?.firstMaterial?.normal.contents = #imageLiteral(resourceName: "EarthNormal")
+        earthNode.position = SCNVector3(0,0,-0.5)
+        arView.scene.rootNode.addChildNode(earthNode)
+        
+        let rotate = SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: 15) //Rotate the earth a full 360 degrees in 15 seconds
+        let rotateForever = SCNAction.repeatForever(rotate)
+        earthNode.runAction(rotateForever)
+    }
+    
 }
+
+
+// DIFFUSE: The diffuse property specifies the amount of light diffusely reflected from the surface
+
+//SPECULAR: The specuar property specifies the amount of light to reflect in a mirror-like manner
+
+//EMMISION: The emmision property specifies the amount of light the material emits. The emmision does not light up other surfaces in the scene
+
+//NORMAL: The normal property specifies the surface orientation
